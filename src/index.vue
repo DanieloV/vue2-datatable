@@ -9,14 +9,17 @@
 
     <tbl v-bind="$props" />
     
-    <div v-if="Pagination" class="row" style="margin-top: 10px">
-      <div class="col-sm-6">
-        <strong>
-          {{ $i18nForDatatable('Total') }} {{ total }} {{ $i18nForDatatable(',') }}
-        </strong>
-        <page-size-select :query="query" :page-size-options="pageSizeOptions" />
+    <div v-if="Pagination" class="row form-inline" style="margin-top: 10px; font-size: 85%; color: #888;">
+      <div class="col-sm-4">
+        <template v-if="data.length">
+          Show
+          <page-size-select :query="query" :page-size-options="pageSizeOptions" :itemsName="itemsName" />
+        </template>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
+        <p class="text-center" style="padding-top: 5px;" v-if="data.length">Showing {{ query.offset + 1 }} to {{ query.offset + query.limit < total ? query.offset + query.limit : total}} of {{ total }} {{ itemsName }}</p>
+      </div>
+      <div class="col-sm-4">
         <pagination class="pull-right" :total="total" :query="query" />
       </div>
     </div>
