@@ -1,7 +1,11 @@
 <template>
-  <a href="#" @click.prevent="handleClick" name="HeadSort">
-    <i :class="cls"></i>
+  <a v-if="sortable" href="#" @click.prevent="handleClick" name="HeadSort" :class="order">
+    <slot></slot>
+    <i :class="iconClass"></i>
   </a>
+  <div v-else>
+    <slot></slot>
+  </div>
 </template>
 <script>
 /**
@@ -10,6 +14,7 @@
 export default {
   name: 'HeadSort',
   props: {
+    sortable: { type: Boolean },
     field: { type: String, required: true },
     query: { type: Object, required: true }
   },
@@ -17,13 +22,12 @@ export default {
     order: ''
   }),
   computed: {
-    cls () {
+    iconClass () {
       const { order } = this
       return [
-        'fa',
-        { 'fa-sort text-muted': !order,
-          'fa-sort-up': order === 'asc',
-          'fa-sort-down': order === 'desc'
+        {
+          'fa fa-sort-up': order === 'asc',
+          'fa fa-sort-down': order === 'desc'
         }
       ]
     }
