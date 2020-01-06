@@ -15,7 +15,7 @@ export default {
   name: 'HeadSort',
   props: {
     sortable: { type: Boolean },
-    field: { type: String, required: true },
+    field: { type: String },
     query: { type: Object, required: true }
   },
   data: () => ({
