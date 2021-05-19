@@ -17,6 +17,9 @@
               :nested="item.__nested__"
               v-bind="$props">
             </component>
+            <template v-else-if="col.filter">
+              {{ item[col.field] | col.filter }}
+            </template>
             <template v-else>
               {{ item[col.field] }}
             </template>
